@@ -1,5 +1,5 @@
 class Plant:  # Note that parens are optional if not inheriting from another class
-  def __init__(self, name, kind, description):
+  def __init__(self, name, origin, description):
     self.name = name
     self.origin = origin
     self.description = description

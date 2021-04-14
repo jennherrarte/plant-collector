@@ -12,3 +12,7 @@ body {
     padding-top: 0;
     text-align: right;
   }
+
+  nav {
+      background-color: green !important;
+  }
