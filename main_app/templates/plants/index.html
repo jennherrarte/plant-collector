@@ -4,6 +4,7 @@
 <h1>Plant List</h1>
 
 {% for plant in plants %}
+<a href="{% url 'detail' plant.id%}">
   <div class="card">
     <div class="card-content">
       <span class="card-title">{{ plant.name }}</span>
@@ -11,6 +12,7 @@
       <p>Description: {{ plant.description }}</p>
     </div>
   </div>
+  </a>
 {% endfor %}
 
 {% endblock %}
