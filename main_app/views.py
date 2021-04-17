@@ -22,3 +22,15 @@ def plants_detail(request, plant_id):
     'plant': plant
     }
     return render(request, 'plants/detail.html', {'plant': plant})
+
+class PlantCreate(CreateView):
+  model = Plant
+  fields = '__all__'
+
+class PlantUpdate(UpdateView):
+  model = Plant
+  fields = ['name', 'origin', 'description']
+
+class PlantDelete(DeleteView):
+  model = Plant
+  success_url = '/plants/'
