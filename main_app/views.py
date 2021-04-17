@@ -3,7 +3,7 @@ from .models import Plant
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Create your views here.
 from django.http import HttpResponse
-from .plant_class import plants
+
 
 # Define the home view
 def home(request):
