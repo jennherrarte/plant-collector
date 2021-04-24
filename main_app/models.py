@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # import your models here
 
 MEALS = (
@@ -19,6 +20,8 @@ class Plant(models.Model):
     def get_absolute_url(self):
       return reverse('detail', kwargs={'plant_id': self.id})
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class Watering(models.Model):
   date = models.DateField('Watering Date')
   meal = models.CharField(
@@ -32,3 +35,12 @@ class Watering(models.Model):
 
   class Meta:
     ordering = ['-date']
+
+
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for plant_id: {self.plant_id} @{self.url}"
