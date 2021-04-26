@@ -8,11 +8,24 @@ MEALS = (
     ('L', 'Lunch'),
     ('D', 'Dinner')
 )
+
+class Pot(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+
+  def __str__(self):
+    return f'{self.name} {self.color}'
+
+    # Add this method
+  def get_absolute_url(self):
+    return reverse('pot_detail', kwargs={'pot_id': self.id})
+
 class Plant(models.Model):
     name = models.CharField(max_length=100)
     origin = models.CharField(max_length=100)
     description = models.TextField(max_length=255) 
-
+    pots = models.ManyToManyField(Pot)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
       return self.name
     
@@ -20,7 +33,7 @@ class Plant(models.Model):
     def get_absolute_url(self):
       return reverse('detail', kwargs={'plant_id': self.id})
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
 class Watering(models.Model):
   date = models.DateField('Watering Date')
@@ -44,3 +57,4 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for plant_id: {self.plant_id} @{self.url}"
+

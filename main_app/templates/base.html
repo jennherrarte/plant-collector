@@ -25,6 +25,8 @@
     <!-- changes below -->
   <li><a href="{% url 'about' %}">About</a></li>
   {% if user.is_authenticated %}
+    <li><a href="{% url 'create_pot' %}">Add a Pot</a></li>
+    <li><a href="{% url 'pots_index' %}">View All Pots</a></li>
     <li><a href="{% url 'plants_create' %}">Add a Plant</a></li>
     <li><a href="{% url 'index' %}">View All My Plants</a></li>
     <li><a href="{% url 'logout' %}">Log Out</a></li>

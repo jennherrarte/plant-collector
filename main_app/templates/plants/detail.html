@@ -53,6 +53,46 @@
   </div>
 </div>
 
+<hr>
+<div class="row">
+ <div class="col s6">
+  <h3>{{ plant.name }}'s Pots</h3>
+  {% if plant.pots.count %}
+   {% for pot in plant.pots.all %}
+    <div class="card">
+     <div class="card-content">
+      <span class="card-title">
+       A <span style="color: {{ pot.color }}">{{ pot.color }}</span> {{ pot.name }}
+      </span>
+    </div>
+ </div>
+ {% endfor %}
+ {% else %}
+ <h5>No Pots :(</h5>{% endif %}
+</div>
+
+  <div class="col s6">
+    <h3>Available Pots</h3>
+    {% if pots.count %}
+      {% for pot in pots.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ pot.color }}">{{ pot.color }}</span> {{ pot.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_pot' plant.id pot.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{plant.name}} Already Has All Pots Available</h5>
+    {% endif %}
+  </div>
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {

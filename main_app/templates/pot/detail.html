@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Pot Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ pot.name }}</span>
+    <p>color: {{ pot.color }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'update_pot' pot.id %}">Edit</a>
+    <a href="{% url 'delete_pot' pot.id %}">Delete</a>
+  </div> 
+</div>
+
+{% endblock %}

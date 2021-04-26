@@ -3,7 +3,7 @@ from django.http import HttpResponse
 # generic CBV's
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Our Models
-from .models import Plant, Photo
+from .models import Plant, Photo, Pot
 from .forms import WateringForm
 import uuid
 import boto3
@@ -34,10 +34,12 @@ def plants_index(request):
 @login_required
 def plants_detail(request, plant_id):
     plant = Plant.objects.get(id=plant_id)
+    pots_plant_doesnt_have = Pot.objects.exclude(id__in = plant.pots.all().values_list('id'))
     watering_form = WateringForm()
     context = {
       'plant': plant,
-      'watering_form': watering_form
+      'watering_form': watering_form,
+      'pots': pots_plant_doesnt_have
     }
     return render(request, 'plants/detail.html', context)
 
@@ -108,3 +110,53 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+
+
+
+@login_required
+def pots_index(request):
+    pots = Pot.objects.all()
+    context = {'pots': pots}
+
+    return render(request, 'pot/index.html', context)
+
+
+@login_required
+def pot_detail(request, pot_id):
+    pot = Pot.objects.get(id=pot_id)
+    context = {
+        'pot': pot
+    }
+    return render(request, 'pot/detail.html', context)
+
+@login_required
+def assoc_pot(request, plant_id, pot_id):
+  Plant.objects.get(id=plant_id).pots.add(pot_id)
+  return redirect('detail', plant_id=plant_id)
+
+
+@login_required
+def remove_pot(request, plant_id, pot_id):
+    Plant.objects.get(id=plant_id).pots.remove(pot_id)
+    return redirect('detail', plant_id=plant_id)
+
+class Create_Pot(LoginRequiredMixin, CreateView):
+    model = Pot
+    fields = '__all__'
+
+
+class Update_pot(LoginRequiredMixin, UpdateView):
+    model = Pot
+    fields = ['color']
+
+
+class Delete_pot(LoginRequiredMixin, DeleteView):
+    model = Pot
+    success_url = '/pots/'
+
+
+
+
+
+

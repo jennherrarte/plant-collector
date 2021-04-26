@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for pot in pots %}
+
+  <div class="card">
+  <a href="{% url 'pot_detail' pot.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ pot.name }}</span>
+      <p>Color: {{ pot.color }}</p>
+    </div>
+    </a>
+  </div>
+  {% comment %} 
+    if there is no elemnts in our list will  display no pots
+  {% endcomment %}
+  {% empty %} 
+
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">No pots</span>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% endblock %}
