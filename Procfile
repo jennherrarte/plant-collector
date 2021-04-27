@@ -1,1 +1,1 @@
-web: gunicorn plantcollector1.wsgi
+web: gunicorn plantcollector_project.wsgi
