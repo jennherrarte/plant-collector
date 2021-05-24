@@ -11,6 +11,7 @@ An app for plant enthusiasts who want to keep track of how often they water thei
 * Technologies used so far: 
   - Python 
   - Django 
+  - AWS
 
 ***
 
